@@ -10,10 +10,10 @@ const UserAssetsModel = require("./models/UserAssets.model")
 const multer = require("multer")
 const fs = require('fs')
 const pinataSDK = require('@pinata/sdk');
-
+require("dotenv").config();
 
 let db=[];
-const PINATA_API_JWT="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI5Y2QzNDNmZi1iZGI5LTQ0YmUtOTZjYS1lZDc3YTYyYzMwNzAiLCJlbWFpbCI6InJsYXdsZ2hrZDEyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiIwZDExZDNjZjdkOWNmMWMyMDA0NCIsInNjb3BlZEtleVNlY3JldCI6ImRkM2NiODQ5MmNmNDE0NGYxZTI2NzM4YTZiZWRjOWQ2YjlhZTYzMTQyNGQ1N2EzNTZkZGUzNzk5Yjk0OTJlY2QiLCJpYXQiOjE2Nzc0MjU2MDZ9.gZk_hjpVv7hMxMuWfM8FhPCvtli6AVchmBaJo2IBAbU"
+const PINATA_API_JWT=process.env.PINATA_JWT;
 const pinata = new pinataSDK({ pinataJWTKey: PINATA_API_JWT});
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -22,7 +22,7 @@ const mongoose = require('mongoose');
 const { chownSync } = require('fs');
 const { default: axios } = require('axios');
 mongoose.connect(
-    'mongodb+srv://hwang:wlghkd34kr!@yourd.pfzdjnl.mongodb.net/?retryWrites=true&w=majority',
+    process.env.MONGODB,
     {}
 ).then(()=> console.log("MongoDB conected"))
 .catch((err)=> {
