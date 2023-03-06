@@ -11,6 +11,7 @@ const multer = require("multer")
 const fs = require('fs')
 const pinataSDK = require('@pinata/sdk');
 require("dotenv").config();
+app.use('/adsList',require('./adsList'));
 
 let db=[];
 const PINATA_API_JWT=process.env.PINATA_JWT;
@@ -151,3 +152,4 @@ app.post('/loadAdsInfo', async function(req,res) {
 app.listen(8080, ()=>{
     console.log(`Connect at http://localhost:${port}`); // '가 아닌 좌측상단의 esc버튼 밑의 `다.
 })
+
