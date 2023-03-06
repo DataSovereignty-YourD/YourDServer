@@ -161,7 +161,7 @@ app.post('/loadAdsInfo', async function(req,res) {
 
 
 app.get('/wasmFile',async function(req,res) {
-    res.sendFile(__dirname + '/public/wasmfile.wasm');
+    res.sendFile(__dirname + '/public/wasmFile.wasm');
 })
 
 app.get('/zkeyFile', async function(req,res) {
