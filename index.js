@@ -22,6 +22,16 @@ app.use(bodyParser.json());
 const mongoose = require('mongoose');
 const { chownSync } = require('fs');
 const { default: axios } = require('axios');
+// import 
+app.use((req, res, next) => {
+    // 모든 도메인의 요청을 허용하도록 설정
+    res.header('Access-Control-Allow-Origin', '*');
+    // 요청 헤더에서 허용할 항목을 설정
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    // 요청 메서드를 설정
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    next();
+  });
 mongoose.connect(
     process.env.MONGODB,
     {}
@@ -148,6 +158,17 @@ app.post('/loadAdsInfo', async function(req,res) {
     }
     else return res.status(200).send(UserAds.Position);
 })
+
+
+app.get('/wasmFile',async function(req,res) {
+    res.sendFile(__dirname + '/public/wasmfile.wasm');
+})
+
+app.get('/zkeyFile', async function(req,res) {
+    res.sendFile(__dirname + '/public/zkey.zkey');
+})
+
+
 
 app.listen(8080, ()=>{
     console.log(`Connect at http://localhost:${port}`); // '가 아닌 좌측상단의 esc버튼 밑의 `다.
