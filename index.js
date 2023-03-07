@@ -23,15 +23,15 @@ const { chownSync } = require('fs');
 const { default: axios } = require('axios');
 // import 
 app.use(cors());
-// app.use((req, res, next) => {
-//     // 모든 도메인의 요청을 허용하도록 설정
-//     res.header('Access-Control-Allow-Origin', '*');
-//     // 요청 헤더에서 허용할 항목을 설정
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//     // 요청 메서드를 설정
-//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-//     next();
-//   });
+app.use((req, res, next) => {
+    // 모든 도메인의 요청을 허용하도록 설정
+    res.header('Access-Control-Allow-Origin', '*');
+    // 요청 헤더에서 허용할 항목을 설정
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    // 요청 메서드를 설정
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    next();
+  });
 
 mongoose.connect(
     process.env.MONGODB,
