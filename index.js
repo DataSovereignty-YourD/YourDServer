@@ -114,26 +114,30 @@ const storeFileToIPFS = async (name,account) => {
     return IpfsHash;
 }
 
-app.post('/getasset',async function(req,res) { 
-    const account = req.body[0];
-    console.log(account);
-    const userAssets = await UserAssetsModel.findOne({User: account})
+app.post("/getasset", async function (req, res) {
+  const account = req.body[0];
+  console.log(account);
+  if (!account) {
+    const userAssets = await UserAssetsModel.findOne({ User: account });
     if (!userAssets) {
-        // 일치하는 document가 없으면 에러 응답
-        UserAssetsModel({
-            User: account,
-            Asset: [],
-        }).save().then(()=> {
-            console.log("Stard get Asset but not exist account");
-            // res.redirect('/');
-            return res.send([]);
-        }).catch((err)=> {
-            console.err(err.masaage);
-            return res.status(400).send("업로드 에러");
+      // 일치하는 document가 없으면 에러 응답
+      UserAssetsModel({
+        User: account,
+        Asset: [],
+      })
+        .save()
+        .then(() => {
+          console.log("Stard get Asset but not exist account");
+          // res.redirect('/');
+          return res.send([]);
         })
-    }
-    else res.send(userAssets.Asset);
-})
+        .catch((err) => {
+          console.err(err.masaage);
+          return res.status(400).send("업로드 에러");
+        });
+    } else res.send(userAssets.Asset);
+  }
+});
 
 app.post('/ConeUpdate',async function(req,res ){
     const Cone = req.body.Asset;
