@@ -9,8 +9,9 @@ const UserAdsSchema = new mongoose.Schema({
   RpP: { type: Number, require: true },
   Position: {type: Object, require: true},
   AdsCid: {type: Array, require: false},
+  StoreLocation: {type:Array, require: false}
 });
 
-const UserAdsModel = mongoose.model('UserModel', UserAdsSchema)
+const UserAdsModel = mongoose.model('UserAdsModel', UserAdsSchema)
 
 module.exports = UserAdsModel

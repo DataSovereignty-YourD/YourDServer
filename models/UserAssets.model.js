@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const UserAssetsSchema = new mongoose.Schema({
-  User: {type: Array, require: true},
+  User: {type: String, require: true},
   Asset: {type: Array, require: true},
 });
 
