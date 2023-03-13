@@ -13,7 +13,7 @@ const UserAdsModel = require("../models/UserAds.model");
 
 router.post('/',cors(), async function(req,res) {
     if(req.body !== null) {
-        const src = path.join("/Users/hwang/bleem/YourDServer/public/verification_key.json");
+        const src = path.join(__dirname,"../public/verification_key.json");
         let verificationkey; 
         fs.readFile(src,async (err, data) => {
             if (err) {
@@ -34,7 +34,7 @@ router.post('/',cors(), async function(req,res) {
             }
         })
     }else {
-        
+
     }
     //verify true값만 보내도록 해야 됨.
     
