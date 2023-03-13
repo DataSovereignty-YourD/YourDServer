@@ -12,9 +12,12 @@ const multer = require("multer")
 const fs = require('fs')
 const pinataSDK = require('@pinata/sdk');
 require("dotenv").config();
+
+
+
 app.use(express.json({limit: "10mb"}));
 app.use(express.urlencoded({ limit: "10mb",extended: true }))
-
+const snarkjs = require("snarkjs");
 app.use(
   cors({
     origin: "*",
@@ -26,20 +29,13 @@ app.use('/adslist',require('./src/adsList'));
 app.use('/proof', require('./src/proof'));
 app.use('/account', require('./src/account'));
 
-// app.use(function(req, res, next) {
-//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    // res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    // res.header("Access-Control-Max-Age","86400");
-//     next();
-//   });
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const PINATA_API_JWT=process.env.PINATA_JWT;
 const pinata = new pinataSDK({ pinataJWTKey: PINATA_API_JWT});
 const mongoose = require('mongoose');
+const { send } = require('process');
 
 mongoose
   .connect(process.env.MONGODB, {})
@@ -121,9 +117,11 @@ const storeFileToIPFS = async (name,account) => {
         //handle error here
         console.log(err);
         return;
+
     });
     return IpfsHash;
 }
+
 
 app.post("/getasset", async function (req, res) {
     console.log(req.body);
@@ -177,13 +175,29 @@ app.get('/zkeyFile', async function(req,res) {
 })
 
 app.post('/proofResult', async function(req,res) {
-    try {
-        if(req.body !== null)
-        res.status(200).send("success!");
-    } catch (err) {
-        console.log(err);
-    }
+
+        const url = "http://localhost:8000/adslist";
+         res.redirect(307,url);
+         res.re
+        //(verificationkey,req.body.publicSignals,req.body.proof)
 })
+
+
+// app.post('/adslist',cors(), async function(req,res) {
+    
+//     //verify true값만 보내도록 해야 됨.
+//     UserAdsModel.find({}).then((ads) => {
+//         console.log(ads)
+//         res.status(200).send(ads);
+//     })
+    
+//     //mongodb
+    
+    
+// })
+
+
+
 
 
 app.listen(port, ()=>{
