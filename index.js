@@ -176,9 +176,8 @@ app.get('/zkeyFile', async function(req,res) {
 
 app.post('/proofResult', async function(req,res) {
 
-        const url = "https://www.yourdserver.store/adslist";
+        const url = "http://localhost:8000/adslist";
          res.redirect(307,url);
-         res.re
         //(verificationkey,req.body.publicSignals,req.body.proof)
 })
 
